@@ -26,14 +26,20 @@ module Chat
       sql = <<-SQL
         INSERT INTO users (username, password)
         values ($1, $2) returning *
-        SQL
-      db.exec(sql, [name, pword]).to_a.first    
+        SQL 
+      result = db.exec(sql, [name, pword]).to_a.first
+      new_key = self.generate_apikey
+      db.exec("INSERT INTO api_keys (user_id, api_key) VALUES ($1,$2)", [result['id'],new_key]
+      result    
     end
 
     def self.find_user_byname(username, db)
       db.exec("SELECT * FROM users where username = $1", [username]).to_a.first
     end
-
+    
+    def self.find_api_key(user_id, db)
+      db.exec("SELECT * FROM api_keys WHERE user_id = $1", [user_id]).entries.first
+    end
 
     def self.generate_apikey
       SecureRandom.hex
