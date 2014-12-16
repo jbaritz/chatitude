@@ -1,6 +1,7 @@
 
 
 $(document).ready(function(){
+  console.log(localStorage)
 	if (localStorage.getItem("currentUser")){
 	  $('.loggedin').append('Welcome, ' + localStorage.getItem("currentUser"))
 	}
@@ -34,14 +35,7 @@ $(document).ready(function(){
   	$('.chatlist').show();
   	$('.signinform').hide();
   	$('.signupform').hide();
-	// var source   = $("#chats").html() //grabs the html
-	// var template = Handlebars.compile(source) //"template" acts as a function
-	// console.log(getChats())
-	// getChats().forEach(function (chat) {
-	// 		var chatHtml = template(chat)
-	// 		$('.chatlist').append(chatHtml)
-		
-	// }) //close get req
+
   getChats();
 	$('.newchat').show()
   }) //close chatview click
@@ -62,17 +56,17 @@ $('form.chatform').on('submit', function (e) { //new chat submit
       //  $('.newchat').append($labeldiv)
 
     })
-    .fail(function(error) {
-      console.log("Invalid POST request:", error.responseText)
-      var errorObj = JSON.parse(error.responseText)
-      for (var fieldName in errorObj) {
-      console.log(fieldName, errorObj[fieldName])
-      var errorText = errorObj[fieldName].join(';')
-      var $errorDiv = $('<div>').addClass('error')
-      $errorDiv.html(fieldName + " - " + errorText)
-      $('.newchat').append($errorDiv)
-      }
-    })
+    // .fail(function(error) {
+    //   console.log("Invalid POST request:", error.responseText)
+    //   var errorObj = JSON.parse(error.responseText)
+    //   for (var fieldName in errorObj) {
+    //   console.log(fieldName, errorObj[fieldName])
+    //   var errorText = errorObj[fieldName].join(';')
+    //   var $errorDiv = $('<div>').addClass('error')
+    //   $errorDiv.html(fieldName + " - " + errorText)
+    //   $('.newchat').append($errorDiv)
+    //   }
+    // })
 	}) // end new chat post
 
  $('.signup').on('click', function(e){ //show sign up form
@@ -90,19 +84,23 @@ $('form.chatform').on('submit', function (e) { //new chat submit
 
   }) //end signin click
 
-// $('form.signupform').on('submit', function (e) { //signupform
-//   console.log(user_info);
-// })
-//   var requestBody = {}
-//   requestBody.username = $('[name=username]', this).val()
-//   requestBody.password =  $('[name=password]', this).val()
-//   var url = "http://chat.api.mks.io/signup"
+$('form.signupform').on('submit', function (e) { //signupform
+  e.preventDefault();
+  var requestBody = {}
+  requestBody.username = $('[name=username]', this).val()
+  requestBody.password =  $('[name=password]', this).val()
+  var url = "/signup"
+  $.post(url, requestBody)
+    .done(function(newUser) {
+      console.log(newUser)
+      var $labeldiv = $('<div>')
+      $labeldiv.html("You have successfully registered!")
+       $('form.signupform').append($labeldiv)
+       localStorage.setItem("currentUser", newUser["username"])
+       localStorage.setItem("apiKey", newUser["api_key"])
+     })
+  })
 
-//   $.post(url, requestBody)
-//     .done(function(newUser) {
-//       var $labeldiv = $('<div>')
-//       $labeldiv.html("You have successfully registered!")
-//        $('form.signupform').append($labeldiv)
 
 //     })
 //     .fail(function(error) {
@@ -117,15 +115,16 @@ $('form.chatform').on('submit', function (e) { //new chat submit
 //       }
 //     })
 // 	}) // end signup post
-// $('form.signinform').on('submit', function (e) { //signinform
-//   e.preventDefault()
-//   var requestBody = {}
-//   requestBody.username = $('[name=username]', this).val()
-//   requestBody.password =  $('[name=password]', this).val()
-//   var url = "http://chat.api.mks.io/signin"
-
-//   $.post(url, requestBody)
-//     .done(function(response) {
+$('form.signinform').on('submit', function (e) { //signinform
+  e.preventDefault()
+  var requestBody = {}
+  requestBody.username = $('[name=username]', this).val()
+  requestBody.password =  $('[name=password]', this).val()
+  var url = "http://chat.api.mks.io/signin"
+  $.post(url, requestBody)
+    .done(function(response) {
+    })
+  })
 //       var $labeldiv = $('<div>')
 //       $labeldiv.html("You have successfully logged in!")
 //       $('form.signinform').append($labeldiv)
