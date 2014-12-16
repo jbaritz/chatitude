@@ -3,9 +3,10 @@ require 'sinatra'
 
 require_relative 'lib/chatitude.rb'
 
-# set :bind, '0.0.0.0'
+set :bind, '0.0.0.0'
 
 get '/' do
+  headers['Content-Type'] = 'application/json'
   send_file 'public/index.html'
 end
 
@@ -23,6 +24,7 @@ end
 
 post '/signin/' do
 # params[:username][:password]
+  
 end
 
 get '/chats' do
