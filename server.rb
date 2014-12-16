@@ -10,8 +10,7 @@ get '/' do
   send_file 'public/index.html'
 end
 
-post '/signup' do
-  
+post '/signup' do  
   # params[:username][:password]
   headers['Content-Type'] = 'application/json'
   db = Chat::DB.connect_db
