@@ -17,6 +17,7 @@ post '/signup' do
   new_user = Chat::DB.new_user(username,password,db)
   api_key = Chat::DB.find_api_key(new_user['id'], db)
   localStorage.setItem('apiKey', api_key)
+  localStorage.setItem('currentUser', new_user['username'])
   redirect to '/'
 end
 
