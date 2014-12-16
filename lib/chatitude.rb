@@ -1,4 +1,5 @@
 require 'pg'
+require 'securerandom'
 
 module Chat
   class DB
