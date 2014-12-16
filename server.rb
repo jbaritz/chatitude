@@ -3,7 +3,7 @@ require 'sinatra'
 
 require_relative 'lib/chatitude.rb'
 
-set :bind, '0.0.0.0'
+# set :bind, '0.0.0.0'
 
 get '/' do
   headers['Content-Type'] = 'application/json'

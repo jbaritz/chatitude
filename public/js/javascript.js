@@ -90,8 +90,10 @@ $('form.chatform').on('submit', function (e) { //new chat submit
 
   }) //end signin click
 
-// $('form.signupform').on('submit', function (e) { //signupform
-//   e.preventDefault()
+$('form.signupform').on('submit', function (e) { //signupform
+  e.preventDefault();
+  console.log(user_info);
+})
 //   var requestBody = {}
 //   requestBody.username = $('[name=username]', this).val()
 //   requestBody.password =  $('[name=password]', this).val()
