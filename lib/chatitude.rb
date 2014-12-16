@@ -26,7 +26,7 @@ module Chat
       sql = <<-SQL
         INSERT INTO users (username, password)
         values ($1, $2) returning *
-        SQL 
+        SQL
       result = db.exec(sql, [name, pword]).to_a.first
       new_key = self.generate_apikey
       db.exec("INSERT INTO api_keys (user_id, api_key) VALUES ($1,$2)", [result['id'],new_key]
