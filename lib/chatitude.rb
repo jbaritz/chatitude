@@ -38,7 +38,7 @@ module Chat
     end
     
     def self.find_api_key(user_id, db)
-      db.exec("SELECT * FROM api_keys WHERE user_id = $1", [user_id]).entries.first
+      db.exec("SELECT api_key FROM api_keys WHERE user_id = $1", [user_id]).entries.first
     end
 
     def self.generate_apikey
