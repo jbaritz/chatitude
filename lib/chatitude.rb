@@ -5,10 +5,15 @@ module Chat
     def self.create_tables
       db.exec <<-SQL
         CREATE TABLE IF NOT EXISTS users(
-          id SERIAL PRIMARY KEY,
+          id       SERIAL PRIMARY KEY,
           username VARCHAR,
           password VARCHAR
-          );  
+          ); 
+        CREATE TABLE IF NOT EXISTS api_keys(
+        id        SERIAL PRIMARY KEY,
+        user_id   INTEGER REFERENCES users(id),
+        api_key   VARCHAR
+        ); 
       SQL
     end
 
