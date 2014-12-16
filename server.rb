@@ -10,6 +10,7 @@ get '/' do
 end
 
 post '/signup' do
+  
   # params[:username][:password]
   db = Chat::DB.connect_db
   username = params[:username]

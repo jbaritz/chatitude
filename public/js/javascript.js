@@ -7,28 +7,28 @@ $(document).ready(function(){
  $('.signupform').hide();
  $('.newchat').hide();
 
- function getChats(){
-   var url = "http://chat.api.mks.io/chats"
- 	var chats = 
- 	 $.ajax({
-        type: "GET",
-        url: url,
-        async: false
-	    }).success(function (chats){
-	    	console.log(chats)
-	    	var source   = $("#chats").html() //grabs the html
-			var template = Handlebars.compile(source) //"template" acts as a function
-			$('.chatbox').remove();
+//  function getChats(){
+//    var url = "http://chat.api.mks.io/chats"
+//  	var chats = 
+//  	 $.ajax({
+//         type: "GET",
+//         url: url,
+//         async: false
+// 	    }).success(function (chats){
+// 	    	console.log(chats)
+// 	    	var source   = $("#chats").html() //grabs the html
+// 			var template = Handlebars.compile(source) //"template" acts as a function
+// 			$('.chatbox').remove();
 
-			chats.forEach(function (chat){
-			var chatHtml = template(chat)
-			$('.chatlist').append(chatHtml)
-			})
-        setTimeout(function(){getChats();}, 1000);
-    })
+// 			chats.forEach(function (chat){
+// 			var chatHtml = template(chat)
+// 			$('.chatlist').append(chatHtml)
+// 			})
+//         setTimeout(function(){getChats();}, 1000);
+//     })
    
-	// return chats.responseJSON;
-}
+// 	// return chats.responseJSON;
+// }
 
   $(".showchats").on('click', function(e){ //view chats
   	$('.chatlist').show();
