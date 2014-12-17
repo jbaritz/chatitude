@@ -51,13 +51,7 @@ $('form.chatform').on('submit', function (e) { //new chat submit
   requestBody.apiKey = localStorage.getItem("apiKey")
   var url = "/chats"
   $.post(url, requestBody)
-    .done(function(newChat) {
-      console.log("submitted message!")
-      // var $labeldiv = $('<div>')
-      // $labeldiv.html("You have successfully submitted your message!")
-      //  $('.newchat').append($labeldiv)
-
-    })
+  this.reset()
     // .fail(function(error) {
     //   console.log("Invalid POST request:", error.responseText)
     //   var errorObj = JSON.parse(error.responseText)
