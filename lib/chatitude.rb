@@ -18,7 +18,8 @@ module Chat
       CREATE TABLE IF NOT EXISTS chats(
         id SERIAL PRIMARY KEY,
         user_id   INTEGER REFERENCES users(id),
-        message   TEXT
+        message   TEXT,
+        time TIMESTAMP
         );
       SQL
     end
@@ -51,11 +52,11 @@ module Chat
     end
 
     def self.newchat(user_id, message, db)
-      db.exec("INSERT INTO chats (user_id, message) VALUES ($1,$2)", [user_id, message])
+      db.exec("INSERT INTO chats (user_id, message, time) VALUES ($1,$2,$3)", [user_id, message,DateTime.now])
     end
 
     def self.getchats(db)
-      db.exec("Select * from chats").to_a
+      db.exec("Select message, username, time from chats c join users u on c.user_id = u.id").to_a
     end
 
     def self.generate_apikey

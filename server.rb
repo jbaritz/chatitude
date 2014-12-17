@@ -42,7 +42,9 @@ end
 get '/chats' do
 # id, username, time, message
   headers['Content-Type'] = 'application/json'
-  
+  db = Chat::DB.connect_db
+  chats = Chat::DB.getchats(db)
+  chats.to_json
 end
 
 post '/chats' do

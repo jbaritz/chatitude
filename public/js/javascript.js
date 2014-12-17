@@ -10,12 +10,8 @@ $(document).ready(function(){
 
  function getChats(){
    var url = "/chats"
- 	var chats = 
- 	 $.ajax({
-        type: "GET",
-        url: url,
-        async: false
-	    }).success(function (chats){
+ 	 $.get(url)
+   .done(function (chats){
 	    	console.log(chats)
 	    	var source   = $("#chats").html() //grabs the html
 			var template = Handlebars.compile(source) //"template" acts as a function
