@@ -50,12 +50,14 @@ end
 post '/chats' do
 # api token message
   headers['Content-Type'] = 'application/json'
+  puts params
   key = params[:apiKey]
   message = params[:message]
   db = Chat::DB.connect_db
   user_id = Chat::DB.check_api(key,db)
+  puts user_id['user_id']
   if user_id
-    Chat::DB.newchat(user_id, message, db)
+    Chat::DB.newchat(user_id['user_id'], message, db)
   end
 end
 

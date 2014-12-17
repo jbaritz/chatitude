@@ -41,7 +41,7 @@ $('form.chatform').on('submit', function (e) { //new chat submit
   e.preventDefault()
   var requestBody = {}
   requestBody.message = $('[name=message]', this).val()
-  requestBody.apiKey = localStorage.getItem("api_key")
+  requestBody.apiKey = localStorage.getItem("apiKey")
   var url = "/chats"
   $.post(url, requestBody)
     .done(function(newChat) {
