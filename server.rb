@@ -42,7 +42,7 @@ end
 get '/chats' do
 # id, username, time, message
   headers['Content-Type'] = 'application/json'
-
+  
 end
 
 post '/chats' do
