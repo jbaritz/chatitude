@@ -4,9 +4,16 @@ $(document).ready(function(){
   console.log(localStorage)
 	if (localStorage.getItem("currentUser")){
 	  $('.loggedin').append('Welcome, ' + localStorage.getItem("currentUser"))
+    $('.loggedin').append(' | <a href="#" class="signout">Sign Out</a>')
 	}
  $('.signupform').hide();
  $('.newchat').hide();
+
+ $('.signout').on('click', function (e){
+    console.log("signout clicked");
+    localStorage.clear();
+    location.reload();
+ })
 
  function getChats(){
    var url = "/chats"
@@ -93,7 +100,9 @@ $('form.signupform').on('submit', function (e) { //signupform
        $('form.signupform').append($labeldiv)
        localStorage.setItem("currentUser", newUser["username"])
        localStorage.setItem("apiKey", newUser["api_key"])
+       location.reload();
      })
+    
   })
 
 
@@ -122,7 +131,9 @@ $('form.signinform').on('submit', function (e) { //signinform
       localStorage.clear();
       localStorage.setItem("currentUser", response["username"])
       localStorage.setItem("apiKey", response["api_key"])
+      location.reload();
     })
+
   })
 //       var $labeldiv = $('<div>')
 //       $labeldiv.html("You have successfully logged in!")
