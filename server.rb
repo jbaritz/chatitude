@@ -4,7 +4,7 @@ require 'json'
 
 require_relative 'lib/chatitude.rb'
 
-set :bind, '0.0.0.0'
+# set :bind, '0.0.0.0'
 
 get '/' do
 
@@ -43,7 +43,8 @@ get '/chats' do
 # id, username, time, message
   headers['Content-Type'] = 'application/json'
   db = Chat::DB.connect_db
-  Chat::DB.getchats(db)
+  chats = Chat::DB.getchats(db)
+  chats.to_json
 end
 
 post '/chats' do

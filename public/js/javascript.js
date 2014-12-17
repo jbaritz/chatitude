@@ -9,13 +9,9 @@ $(document).ready(function(){
  $('.newchat').hide();
 
  function getChats(){
-   var url = "http://chat.api.mks.io/chats"
- 	var chats = 
- 	 $.ajax({
-        type: "GET",
-        url: url,
-        async: false
-	    }).success(function (chats){
+   var url = "/chats"
+ 	 $.get(url)
+   .done(function (chats){
 	    	console.log(chats)
 	    	var source   = $("#chats").html() //grabs the html
 			var template = Handlebars.compile(source) //"template" acts as a function
@@ -35,9 +31,8 @@ $(document).ready(function(){
   	$('.chatlist').show();
   	$('.signinform').hide();
   	$('.signupform').hide();
-
-  getChats();
-	$('.newchat').show()
+    getChats();
+  	$('.newchat').show()
   }) //close chatview click
 
 
@@ -48,7 +43,6 @@ $('form.chatform').on('submit', function (e) { //new chat submit
   requestBody.message = $('[name=message]', this).val()
   requestBody.apiKey = localStorage.getItem("api_key")
   var url = "/chats"
-
   $.post(url, requestBody)
     .done(function(newChat) {
       console.log("submitted message!")
