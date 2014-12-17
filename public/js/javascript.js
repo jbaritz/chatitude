@@ -120,9 +120,13 @@ $('form.signinform').on('submit', function (e) { //signinform
   var requestBody = {}
   requestBody.username = $('[name=username]', this).val()
   requestBody.password =  $('[name=password]', this).val()
-  var url = "http://chat.api.mks.io/signin"
+  var url = "/signin"
   $.post(url, requestBody)
     .done(function(response) {
+      console.log("log:",response)
+      localStorage.clear();
+      localStorage.setItem("currentUser", response["username"])
+      localStorage.setItem("apiKey", response["api_key"])
     })
   })
 //       var $labeldiv = $('<div>')

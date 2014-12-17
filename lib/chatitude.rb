@@ -15,6 +15,11 @@ module Chat
         user_id   INTEGER REFERENCES users(id),
         api_key   VARCHAR
         ); 
+      CREATE TABLE IF NOT EXISTS chats(
+        id SERIAL PRIMARY KEY,
+        user_id   INTEGER REFERENCES users(id),
+        message   TEXT
+        );
       SQL
     end
 

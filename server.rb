@@ -20,12 +20,23 @@ post '/signup' do
   new_user = Chat::DB.new_user(username,password,db)
   api_key = Chat::DB.find_api_key(new_user['id'], db)
   user_info = {'api_key' => api_key['api_key'], 'username' => username}
-  user_info.to_json
+  return user_info.to_json
+  
 end
 
-post '/signin/' do
+post '/signin' do
 # params[:username][:password]
  headers['Content-Type'] = 'application/json' 
+ db = Chat::DB.connect_db
+  username = params[:username]
+  password = params[:password]
+  userdata = Chat::DB.find_user_byname(username,db)
+  if password == userdata["password"]
+     api_key = Chat::DB.find_api_key(userdata['id'], db)
+     user_info = {'api_key' => api_key['api_key'], 'username' => username}
+     return user_info.to_json
+  end
+  
 end
 
 get '/chats' do
