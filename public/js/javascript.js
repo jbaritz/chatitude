@@ -8,28 +8,28 @@ $(document).ready(function(){
  $('.signupform').hide();
  $('.newchat').hide();
 
-//  function getChats(){
-//    var url = "http://chat.api.mks.io/chats"
-//  	var chats = 
-//  	 $.ajax({
-//         type: "GET",
-//         url: url,
-//         async: false
-// 	    }).success(function (chats){
-// 	    	console.log(chats)
-// 	    	var source   = $("#chats").html() //grabs the html
-// 			var template = Handlebars.compile(source) //"template" acts as a function
-// 			$('.chatbox').remove();
+ function getChats(){
+   var url = "http://chat.api.mks.io/chats"
+ 	var chats = 
+ 	 $.ajax({
+        type: "GET",
+        url: url,
+        async: false
+	    }).success(function (chats){
+	    	console.log(chats)
+	    	var source   = $("#chats").html() //grabs the html
+			var template = Handlebars.compile(source) //"template" acts as a function
+			$('.chatbox').remove();
 
-// 			chats.forEach(function (chat){
-// 			var chatHtml = template(chat)
-// 			$('.chatlist').append(chatHtml)
-// 			})
-//         setTimeout(function(){getChats();}, 1000);
-//     })
+			chats.forEach(function (chat){
+			var chatHtml = template(chat)
+			$('.chatlist').append(chatHtml)
+			})
+        setTimeout(function(){getChats();}, 1000);
+    })
    
-// 	// return chats.responseJSON;
-// }
+	// return chats.responseJSON;
+}
 
   $(".showchats").on('click', function(e){ //view chats
   	$('.chatlist').show();
@@ -46,11 +46,12 @@ $('form.chatform').on('submit', function (e) { //new chat submit
   e.preventDefault()
   var requestBody = {}
   requestBody.message = $('[name=message]', this).val()
-  requestBody.apiToken = localStorage.getItem("apiToken")
-  var url = "http://chat.api.mks.io/chats"
+  requestBody.apiKey = localStorage.getItem("api_key")
+  var url = "/chats"
 
   $.post(url, requestBody)
-    .done(function(newUser) {
+    .done(function(newChat) {
+      console.log("submitted message!")
       // var $labeldiv = $('<div>')
       // $labeldiv.html("You have successfully submitted your message!")
       //  $('.newchat').append($labeldiv)

@@ -42,10 +42,18 @@ end
 get '/chats' do
 # id, username, time, message
   headers['Content-Type'] = 'application/json'
+
 end
 
 post '/chats' do
 # api token message
   headers['Content-Type'] = 'application/json'
+  key = params[:apiKey]
+  message = params[:message]
+  db = Chat::DB.connect_db
+  user_id = Chat::DB.check_api(key,db)
+  if user_id
+    Chat::DB.newchat(user_id, message, db)
+  end
 end
 

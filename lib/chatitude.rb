@@ -46,6 +46,10 @@ module Chat
       db.exec("SELECT api_key FROM api_keys WHERE user_id = $1", [user_id]).entries.first
     end
 
+     def self.check_api(key, db)
+      db.exec("SELECT user_id FROM api_keys WHERE api_key = $1", [key]).entries.first
+    end
+
     def self.newchat(user_id, message, db)
       db.exec("INSERT INTO chats (user_id, message) VALUES ($1,$2)", [user_id, message])
     end
